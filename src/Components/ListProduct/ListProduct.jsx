@@ -6,7 +6,7 @@ const ListProduct = () => {
   const [allproducts, setAllproducts] = useState([]);
 
   const fetchInfo = async () => {
-    await fetch("http://localhost:4000/allproducts")
+    await fetch("https://backend-ecommerce-gibj.onrender.com/allproducts")
       .then((res) => res.json())
       .then((data) => {
         setAllproducts(data);
@@ -18,7 +18,7 @@ const ListProduct = () => {
   }, []);
 
   const remveProduct = async (id) => {
-    await fetch("http://localhost:4000/removeproduct", {
+    await fetch("https://backend-ecommerce-gibj.onrender.com/removeproduct", {
       method: "POST",
       headers: {
         Accept: "application/json",

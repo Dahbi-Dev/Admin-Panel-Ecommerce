@@ -18,7 +18,7 @@ const AddImages = () => {
     formData.append("image", image);
 
     try {
-      const response = await fetch("http://localhost:4000/upload", {
+      const response = await fetch("https://backend-ecommerce-gibj.onrender.com/upload", {
         method: "POST",
         body: formData,
       });
@@ -40,7 +40,7 @@ const AddImages = () => {
 
     // Post hero data
     try {
-      const res = await fetch("http://localhost:4000/addhero", {
+      const res = await fetch("https://backend-ecommerce-gibj.onrender.com/addhero", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
