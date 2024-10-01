@@ -4,6 +4,8 @@ import cross_icon from "../../assets/cross_icon.png";
 
 const ListProduct = () => {
   const [allproducts, setAllproducts] = useState([]);
+  const [productCount, setProductCount] = useState(0);
+  const [categoryCount, setCategoryCount] = useState({});
 
   // Fetch all products from the server
   const fetchInfo = async () => {
@@ -11,7 +13,18 @@ const ListProduct = () => {
       .then((res) => res.json())
       .then((data) => {
         setAllproducts(data);
+        setProductCount(data.length); // Set the total product count
+        calculateCategoryCount(data); // Calculate the category-wise count
       });
+  };
+
+  // Function to calculate the number of products in each category
+  const calculateCategoryCount = (products) => {
+    const count = {};
+    products.forEach((product) => {
+      count[product.category] = (count[product.category] || 0) + 1;
+    });
+    setCategoryCount(count); // Set category-wise count
   };
 
   useEffect(() => {
@@ -41,9 +54,12 @@ const ListProduct = () => {
       "Are you sure you want to delete all products? This action cannot be undone!"
     );
     if (confirmation) {
-      await fetch("https://backend-ecommerce-gibj.onrender.com/deleteallproducts", {
-        method: "DELETE",
-      })
+      await fetch(
+        "https://backend-ecommerce-gibj.onrender.com/deleteallproducts",
+        {
+          method: "DELETE",
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           data.success
@@ -57,8 +73,9 @@ const ListProduct = () => {
   return (
     <div className="list-product">
       <h1>All Products</h1>
-       {/* Button to delete all products */}
-       <button
+
+      {/* Button to delete all products */}
+      <button
         className="delete-all-btn"
         style={{
           marginTop: "20px",
@@ -73,6 +90,7 @@ const ListProduct = () => {
       >
         Delete All Products
       </button>
+
       <div className="listproduct-header">
         <p>Products</p>
         <p>Title</p>
@@ -106,7 +124,19 @@ const ListProduct = () => {
           </div>
         ))}
       </div>
-     
+
+      {/* Display the total number of products */}
+      <p>Total Products: <span style={{color:'green'}}>{productCount}</span></p>
+
+      {/* Display the number of products in each category */}
+
+      <ul style={{display:'flex',gap:'15px',listStyle:'none'}}>
+        {Object.keys(categoryCount).map((category) => (
+          <li key={category}>
+            {category}: <span style={{color:'green'}}>{categoryCount[category]}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

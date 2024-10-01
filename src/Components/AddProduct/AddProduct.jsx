@@ -10,16 +10,30 @@ const AddProduct = () => {
     category: "women",
     new_price: "",
     old_price: "",
+    description: "", // Add description
+    sizes: [], // Add sizes as an array
   });
 
   const changerHandler = (e) => {
     setProductDetails({ ...productDetails, [e.target.name]: e.target.value });
   };
 
+  const sizesHandler = (e) => {
+    const selectedSize = e.target.value;
+    setProductDetails((prevDetails) => ({
+      ...prevDetails,
+      sizes: [...prevDetails.sizes, selectedSize],
+    }));
+  };
+
   const Add_Product = async () => {
+    // Make sure to add the sizes and description to the product object
     console.log(productDetails);
     let responseData;
-    let product = productDetails;
+    let product = {
+      ...productDetails,
+      sizes: productDetails.sizes, // Add sizes from state
+    };
 
     let formData = new FormData();
     formData.append("product", image);
@@ -45,11 +59,7 @@ const AddProduct = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(product),
-      })
-        // .then((res) => res.json())
-        // .then((data) => {
-        //   data.success ? alert("Product Added") : alert("Failed");
-        // });
+      });
     }
     setProductDetails({
       name: "",
@@ -57,13 +67,16 @@ const AddProduct = () => {
       category: "women",
       new_price: "",
       old_price: "",
+      description: "", // Reset description
+      sizes: [], // Reset sizes
     });
-    setImage(false)
+    setImage(false);
   };
 
   const imageHandler = (e) => {
     setImage(e.target.files[0]);
   };
+
   return (
     <div className="add-product">
       <div className="addproduct-itemfield">
@@ -74,6 +87,14 @@ const AddProduct = () => {
           type="text"
           name="name"
           placeholder="Type here"
+        />
+        <p>Product Description</p>
+        <textarea
+          className="texta"
+          value={productDetails.description} // Capture description
+          onChange={changerHandler}
+          name="description"
+          placeholder="Type here description"
         />
       </div>
 
@@ -99,6 +120,7 @@ const AddProduct = () => {
           />
         </div>
       </div>
+
       <div className="addproduct-itemfield">
         <p>Product Category</p>
         <select
@@ -112,6 +134,7 @@ const AddProduct = () => {
           <option value="kid">Kid</option>
         </select>
       </div>
+
       <div className="addproduct-itemfield">
         <label htmlFor="file-input">
           <img
@@ -134,5 +157,4 @@ const AddProduct = () => {
     </div>
   );
 };
-
 export default AddProduct;
