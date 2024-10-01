@@ -3,41 +3,32 @@ import upload_area from "../../assets/upload_area.svg";
 import { useState } from "react";
 
 const AddProduct = () => {
-  const [image, setImage] = useState(false);
+  const [image, setImage] = useState(null);
   const [productDetails, setProductDetails] = useState({
     name: "",
     image: "",
     category: "women",
     new_price: "",
     old_price: "",
-    description: "", // Add description
-    sizes: [], // Add sizes as an array
+    description: "", // Added description field
   });
 
   const changerHandler = (e) => {
     setProductDetails({ ...productDetails, [e.target.name]: e.target.value });
   };
 
-  const sizesHandler = (e) => {
-    const selectedSize = e.target.value;
-    setProductDetails((prevDetails) => ({
-      ...prevDetails,
-      sizes: [...prevDetails.sizes, selectedSize],
-    }));
-  };
-
   const Add_Product = async () => {
-    // Make sure to add the sizes and description to the product object
     console.log(productDetails);
     let responseData;
     let product = {
       ...productDetails,
-      sizes: productDetails.sizes, // Add sizes from state
+      sizes: productDetails.sizes || [], // Ensure sizes is defined
     };
 
     let formData = new FormData();
     formData.append("product", image);
 
+    // Upload the image
     await fetch("https://backend-ecommerce-gibj.onrender.com/upload", {
       method: "POST",
       headers: {
@@ -49,9 +40,12 @@ const AddProduct = () => {
       .then((data) => {
         responseData = data;
       });
+
+    // If the image upload is successful
     if (responseData.success) {
       product.image = responseData.image_url;
       console.log(product);
+      // Add product details to the database
       await fetch("https://backend-ecommerce-gibj.onrender.com/addproduct", {
         method: "POST",
         headers: {
@@ -61,6 +55,8 @@ const AddProduct = () => {
         body: JSON.stringify(product),
       });
     }
+
+    // Reset the form after submission
     setProductDetails({
       name: "",
       image: "",
@@ -70,7 +66,7 @@ const AddProduct = () => {
       description: "", // Reset description
       sizes: [], // Reset sizes
     });
-    setImage(false);
+    setImage(null); // Reset image
   };
 
   const imageHandler = (e) => {
@@ -87,6 +83,7 @@ const AddProduct = () => {
           type="text"
           name="name"
           placeholder="Type here"
+          required
         />
         <p>Product Description</p>
         <textarea
@@ -95,6 +92,7 @@ const AddProduct = () => {
           onChange={changerHandler}
           name="description"
           placeholder="Type here description"
+          required
         />
       </div>
 
@@ -107,6 +105,7 @@ const AddProduct = () => {
             type="text"
             name="old_price"
             placeholder="Type here"
+            required
           />
         </div>
         <div className="addproduct-itemfield">
@@ -117,6 +116,7 @@ const AddProduct = () => {
             type="text"
             name="new_price"
             placeholder="Type here"
+            required
           />
         </div>
       </div>
@@ -128,6 +128,7 @@ const AddProduct = () => {
           onChange={changerHandler}
           name="category"
           className="add-product-selector"
+          required
         >
           <option value="women">Women</option>
           <option value="men">Men</option>
@@ -140,7 +141,7 @@ const AddProduct = () => {
           <img
             src={image ? URL.createObjectURL(image) : upload_area}
             className="addproduct-thumnail-img"
-            alt=""
+            alt="Upload Area"
           />
         </label>
         <input
@@ -149,6 +150,7 @@ const AddProduct = () => {
           name="image"
           id="file-input"
           hidden
+          accept="image/*" // Accept only image files
         />
       </div>
       <button onClick={Add_Product} className="addproduct-btn">
@@ -157,4 +159,5 @@ const AddProduct = () => {
     </div>
   );
 };
+
 export default AddProduct;
