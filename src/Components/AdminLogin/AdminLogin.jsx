@@ -9,7 +9,7 @@ const AdminLogin = ({ onLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await fetch("https://backend-ecommerce-gibj.onrender.com/admin/login", {
+    const response = await fetch("http://localhost:4000/admin/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -19,7 +19,7 @@ const AdminLogin = ({ onLogin }) => {
 
     const data = await response.json();
     if (data.success) {
-      localStorage.setItem("token", data.token); // Save token in localStorage
+      sessionStorage.setItem("adminToken", data.token); // Save token in sessionStorage
       onLogin(data.token);
     } else {
       alert(data.errors);

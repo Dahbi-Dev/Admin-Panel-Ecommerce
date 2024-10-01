@@ -7,8 +7,8 @@ const App = () => {
   const [adminToken, setAdminToken] = useState(null);
 
   useEffect(() => {
-    // Check if there's a token in localStorage when the app loads
-    const token = localStorage.getItem("adminToken");
+    // Check if there's a token in sessionStorage when the app loads
+    const token = sessionStorage.getItem("adminToken");
     if (token) {
       setAdminToken(token); // Set token in state if found
     }
@@ -16,12 +16,12 @@ const App = () => {
 
   const handleLogin = (token) => {
     setAdminToken(token);
-    localStorage.setItem("adminToken", token); // Store token in localStorage
+    sessionStorage.setItem("adminToken", token); // Store token in sessionStorage
   };
 
   const handleLogout = () => {
     setAdminToken(null);
-    localStorage.removeItem("adminToken"); // Remove token from localStorage
+    sessionStorage.removeItem("adminToken"); // Remove token from sessionStorage
   };
 
   return (
