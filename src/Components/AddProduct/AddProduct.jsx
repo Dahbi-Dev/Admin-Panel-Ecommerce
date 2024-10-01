@@ -20,9 +20,9 @@ const AddProduct = () => {
   const Add_Product = async () => {
     console.log(productDetails);
     let responseData;
+
     let product = {
       ...productDetails,
-      sizes: productDetails.sizes || [], // Ensure sizes is defined
     };
 
     let formData = new FormData();
@@ -64,7 +64,6 @@ const AddProduct = () => {
       new_price: "",
       old_price: "",
       description: "", // Reset description
-      sizes: [], // Reset sizes
     });
     setImage(null); // Reset image
   };
