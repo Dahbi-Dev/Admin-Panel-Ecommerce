@@ -12,9 +12,10 @@ const ListProduct = () => {
   const [sortOption, setSortOption] = useState("oldest");
   const [categorySortOption, setCategorySortOption] = useState("all");
   const [isDeleting, setIsDeleting] = useState(false);
+  const api = "https://backend-ecommerce-gibj.onrender.com"
 
   const fetchInfo = async () => {
-    const res = await fetch("http://localhost:4000/allproducts");
+    const res = await fetch(`${api}/allproducts`);
     const data = await res.json();
     setAllProducts(data);
     setProductCount(data.length);
