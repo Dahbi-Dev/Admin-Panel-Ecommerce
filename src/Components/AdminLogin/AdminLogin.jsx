@@ -1,47 +1,60 @@
 import { useState } from "react";
-import "./AdminLogin.css"; // Make sure to create this CSS file
+import { FaUser, FaLock, FaSignInAlt } from "react-icons/fa";
+import { ClipLoader } from "react-spinners";
+import "./AdminLogin.css";
 
-// eslint-disable-next-line react/prop-types
-const AdminLogin = ({ onLogin }) => {
+const AdminLogin = ({ onLogin, onLogout }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const api = "https://backend-ecommerce-gibj.onrender.com"
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
-    const response = await fetch("http://localhost:4000/admin/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
+    try {
+      const response = await fetch(`${api}/admin/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-    const data = await response.json();
-    if (data.success) {
-      sessionStorage.setItem("adminToken", data.token); // Save token in sessionStorage
-      onLogin(data.token);
-    } else {
-      alert(data.errors);
+      const data = await response.json();
+      if (data.success) {
+        sessionStorage.setItem("adminToken", data.token);
+        onLogin(data.token);
+      } else {
+        alert(data.errors);
+      }
+    } catch (error) {
+      alert("An error occurred. Please try again.");
+    } finally {
+      // Ensure the spinner is visible for 1.5 seconds
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1500);
     }
   };
 
   return (
-    <div className="wrapper">
-      <div className="container">
-        <div className="col-left">
-          <div className="login-text">
+    <div className="admin-login-wrapper">
+      <div className="admin-login-container">
+        <div className="admin-login-left">
+          <div className="admin-login-text">
             <h2>Welcome Back</h2>
+            <p>Log in to access the admin dashboard</p>
           </div>
         </div>
-        <div className="col-right">
-          <div className="login-form">
-            <h2>Login</h2>
+        <div className="admin-login-right">
+          <div className="admin-login-form">
+            <h2>Admin Login</h2>
             <form onSubmit={handleSubmit}>
-              <p>
-                <label>
-                  Username or email address<span>*</span>
-                </label>
+              <div className="input-group">
+                <FaUser className="input-icon" />
                 <input
                   type="text"
                   placeholder="Username or Email"
@@ -49,11 +62,9 @@ const AdminLogin = ({ onLogin }) => {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
-              </p>
-              <p>
-                <label>
-                  Password<span>*</span>
-                </label>
+              </div>
+              <div className="input-group">
+                <FaLock className="input-icon" />
                 <input
                   type="password"
                   placeholder="Password"
@@ -61,10 +72,17 @@ const AdminLogin = ({ onLogin }) => {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
-              </p>
-              <p>
-                <input type="submit" value="Sign In" />
-              </p>
+              </div>
+              <button type="submit" disabled={isLoading}>
+                {isLoading ? (
+                  <ClipLoader color="#ffffff" size={20} />
+                ) : (
+                  <>
+                    <FaSignInAlt className="button-icon" />
+                    Sign In
+                  </>
+                )}
+              </button>
             </form>
           </div>
         </div>

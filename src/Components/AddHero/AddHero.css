@@ -1,0 +1,91 @@
+/* Container styling */
+.add-hero-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 80px auto; /* Centers the container and adds a margin-top */
+}
+
+/* Heading */
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Form styling */
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+/* Input fields */
+input[type="text"],
+input[type="color"],
+input[type="file"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+input[type="file"] {
+  padding: 0;
+}
+
+/* Button styling */
+button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Error and success messages */
+p {
+  margin: 5px 0;
+}
+
+p[style*="color: red"] {
+  color: #ff4d4f; /* For error messages */
+}
+
+p[style*="color: green"] {
+  color: #28a745; /* For success messages */
+}
+
+/* Spinner container */
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  margin-top: 20px;
+}
+
+/* Image preview */
+img {
+  margin-top: 10px;
+  max-width: 50px;
+  height: auto;
+  border-radius: 5px;
+}

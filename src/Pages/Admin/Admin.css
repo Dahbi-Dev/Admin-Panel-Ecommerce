@@ -1,9 +1,62 @@
+
+/* Admin Styles */
 .admin {
-    display: flex;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
 }
 
-@media(max-width:800px){
-    .admin{
-        flex-direction: column;
-    }
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+  padding-top: 60px;
+  overflow-y: auto;
+  background-color: #f7fafc;
+  transition: padding-left 0.3s ease;
+  width: 100%;
+}
+
+.toggle-sidebar {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1001;
+  background-color: #4a5568;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: left 0.3s ease, background-color 0.2s;
+}
+
+.toggle-sidebar:hover {
+  background-color: #2d3748;
+}
+
+/* Ensure all child components of main-content fit within */
+.main-content > * {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* Optional: Style adjustments for specific components */
+.main-content form,
+.main-content table {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 10px;
+    padding-top: 60px;
+  }
 }

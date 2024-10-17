@@ -1,0 +1,84 @@
+.list-users {
+  padding: 50px; /* Reduced padding for a better layout */
+  margin: 20px;
+  background-color: #f9f9f9; /* Light background for better contrast */
+  border-radius: 8px; /* Rounded corners for a modern look */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 10px; /* Space between controls */
+}
+
+.search-input,
+.sort-select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 200px; /* Fixed width for inputs */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+th {
+  background-color: #f4f4f4;
+  text-align: left;
+}
+
+.add-user-btn {
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.add-user-btn:hover {
+  background-color: #0056b3; /* Darken button color on hover */
+}
+
+button {
+  margin-right: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border: none;
+  color: white;
+  background-color: #ff4141;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #e03e3e; /* Darken button color on hover */
+}
+
+/* Responsive styles */
+@media (max-width: 800px) {
+  .list-users {
+    padding: 20px; /* Less padding on smaller screens */
+  }
+
+  .controls {
+    flex-direction: column; /* Stack controls vertically on small screens */
+    align-items: stretch; /* Stretch controls to full width */
+  }
+
+  .search-input,
+  .sort-select {
+    width: 100%; /* Full width inputs on small screens */
+  }
+}

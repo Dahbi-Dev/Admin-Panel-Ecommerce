@@ -1,0 +1,66 @@
+.add-images {
+    padding: 20px;
+  }
+  
+  .addproduct-itemfield {
+    margin-bottom: 15px;
+  }
+  
+  .addimages-btn {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .logo-list {
+    margin-top: 20px;
+  }
+  
+  .logo-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .logo-item img {
+    max-width: 100px; /* Adjust size as needed */
+    margin-right: 10px;
+  }
+  
+  .logo-item button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+
+  .logo-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .logo-item img {
+    max-width: 100px; /* Adjust size as needed */
+    margin-right: 10px;
+  }
+  
+  .logo-item span {
+    margin-right: 10px; /* Space between name and delete button */
+  }
+  
+  .logo-item button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  

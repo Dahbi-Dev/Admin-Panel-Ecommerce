@@ -1,84 +1,91 @@
 import "./AddProduct.css";
 import upload_area from "../../assets/upload_area.svg";
 import { useState } from "react";
+import { ClipLoader } from "react-spinners";
 
 const AddProduct = () => {
-  const [image, setImage] = useState(null);
+  const api = "https://backend-ecommerce-gibj.onrender.com"
+  const [images, setImages] = useState([]);
   const [productDetails, setProductDetails] = useState({
     name: "",
-    image: "",
     category: "women",
     new_price: "",
     old_price: "",
-    description: "", // Added description field
+    description: "",
   });
+  const [alert, setAlert] = useState({ show: false, message: "", type: "" });
+  const [isLoading, setIsLoading] = useState(false);
 
-  const changerHandler = (e) => {
+  const changeHandler = (e) => {
     setProductDetails({ ...productDetails, [e.target.name]: e.target.value });
   };
 
+  const showAlert = (message, type) => {
+    setAlert({ show: true, message, type });
+    setTimeout(() => setAlert({ show: false, message: "", type: "" }), 3000);
+  };
+
   const Add_Product = async () => {
-    console.log(productDetails);
-    let responseData;
-
-    let product = {
-      ...productDetails,
-    };
-
-    let formData = new FormData();
-    formData.append("product", image);
-
-    // Upload the image
-    await fetch("https://backend-ecommerce-gibj.onrender.com/upload", {
-      method: "POST",
-      headers: {
-        accept: "application/json",
-      },
-      body: formData,
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        responseData = data;
-      });
-
-    // If the image upload is successful
-    if (responseData.success) {
-      product.image = responseData.image_url;
-      console.log(product);
-      // Add product details to the database
-      await fetch("https://backend-ecommerce-gibj.onrender.com/addproduct", {
-        method: "POST",
-        headers: {
-          accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(product),
-      });
+    if (images.length === 0) {
+      showAlert("Please upload at least one image", "error");
+      return;
     }
 
-    // Reset the form after submission
-    setProductDetails({
-      name: "",
-      image: "",
-      category: "women",
-      new_price: "",
-      old_price: "",
-      description: "", // Reset description
+    setIsLoading(true);
+
+    const formData = new FormData();
+    images.forEach((image, index) => {
+      formData.append(`images`, image);
     });
-    setImage(null); // Reset image
+
+    Object.keys(productDetails).forEach((key) => {
+      formData.append(key, productDetails[key]);
+    });
+
+    try {
+      const response = await fetch(`${api}/addproduct`, {
+        method: "POST",
+        body: formData,
+      });
+      const data = await response.json();
+      if (data.success) {
+        showAlert("Product added successfully", "success");
+
+        // Reset form
+        setProductDetails({
+          name: "",
+          category: "women",
+          new_price: "",
+          old_price: "",
+          description: "",
+        });
+        setImages([]);
+      } else {
+        showAlert("Failed to add product", "error");
+      }
+    } catch (error) {
+      showAlert("An error occurred while adding the product", "error");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const imageHandler = (e) => {
-    setImage(e.target.files[0]);
+    const newImages = Array.from(e.target.files);
+    setImages((prevImages) => [...prevImages, ...newImages].slice(0, 5));
+  };
+
+  const removeImage = (index) => {
+    setImages((prevImages) => prevImages.filter((_, i) => i !== index));
   };
 
   return (
-    <div className="add-product">
+    <div className="add-product" style={{ marginTop: "80px" }}>
       <div className="addproduct-itemfield">
-        <p>Product title</p>
+        <h1 style={{textAlign:'center'}}>Product title</h1>
         <input
           value={productDetails.name}
-          onChange={changerHandler}
+          onChange={changeHandler}
           type="text"
           name="name"
           placeholder="Type here"
@@ -87,8 +94,8 @@ const AddProduct = () => {
         <p>Product Description</p>
         <textarea
           className="texta"
-          value={productDetails.description} // Capture description
-          onChange={changerHandler}
+          value={productDetails.description}
+          onChange={changeHandler}
           name="description"
           placeholder="Type here description"
           required
@@ -100,7 +107,7 @@ const AddProduct = () => {
           <p>Price</p>
           <input
             value={productDetails.old_price}
-            onChange={changerHandler}
+            onChange={changeHandler}
             type="text"
             name="old_price"
             placeholder="Type here"
@@ -111,7 +118,7 @@ const AddProduct = () => {
           <p>Offer Price</p>
           <input
             value={productDetails.new_price}
-            onChange={changerHandler}
+            onChange={changeHandler}
             type="text"
             name="new_price"
             placeholder="Type here"
@@ -124,7 +131,7 @@ const AddProduct = () => {
         <p>Product Category</p>
         <select
           value={productDetails.category}
-          onChange={changerHandler}
+          onChange={changeHandler}
           name="category"
           className="add-product-selector"
           required
@@ -136,24 +143,38 @@ const AddProduct = () => {
       </div>
 
       <div className="addproduct-itemfield">
-        <label htmlFor="file-input">
-          <img
-            src={image ? URL.createObjectURL(image) : upload_area}
-            className="addproduct-thumnail-img"
-            alt="Upload Area"
-          />
-        </label>
+        <p>Product Images (Up to 5)</p>
         <input
           onChange={imageHandler}
           type="file"
-          name="image"
+          name="images"
           id="file-input"
-          hidden
-          accept="image/*" // Accept only image files
+          multiple
+          accept="image/*"
         />
+        <div className="image-preview">
+          {images.map((image, index) => (
+            <div key={index} className="image-preview-item">
+              <img src={URL.createObjectURL(image)} alt={`Preview ${index}`} />
+              <button onClick={() => removeImage(index)}>Remove</button>
+            </div>
+          ))}
+        </div>
+
+        {alert.show && (
+          <div className={`alert ${alert.type}`}>{alert.message}</div>
+        )}
       </div>
-      <button onClick={Add_Product} className="addproduct-btn">
-        ADD
+      <button
+        onClick={Add_Product}
+        className="addproduct-btn"
+        disabled={isLoading}
+      >
+        {isLoading ? (
+          <ClipLoader color="#ffffff" loading={isLoading} size={20} />
+        ) : (
+          "ADD"
+        )}
       </button>
     </div>
   );
