@@ -26,7 +26,7 @@ function AddFooter() {
       const textData = await textResponse.json();
       setFooterTextItems(textData);
 
-      const iconResponse = await fetch(`${api}/http://localhost:4000/footer-icons`);
+      const iconResponse = await fetch(`${api}/footer-icons`);
       if (!iconResponse.ok) throw new Error('Failed to load footer icon items');
       const iconData = await iconResponse.json();
       setFooterIconItems(iconData);
@@ -93,7 +93,7 @@ function AddFooter() {
     formData.append('iconUrl', iconUrl);
 
     try {
-      const response = await fetch('http://localhost:4000/upload-footer-icon', {
+      const response = await fetch(`${api}/upload-footer-icon`, {
         method: 'POST',
         body: formData,
       });
@@ -123,7 +123,7 @@ function AddFooter() {
 
   const handleDeleteTextItem = async (id) => {
     try {
-      const response = await fetch(`http://localhost:4000/footer-text/${id}`, {
+      const response = await fetch(`${api}/footer-text/${id}`, {
         method: 'DELETE',
       });
       const data = await response.json();
@@ -141,7 +141,7 @@ function AddFooter() {
 
   const handleDeleteIconItem = async (id) => {
     try {
-      const response = await fetch(`http://localhost:4000/footer-icon/${id}`, {
+      const response = await fetch(`${api}/footer-icon/${id}`, {
         method: 'DELETE',
       });
       const data = await response.json();
