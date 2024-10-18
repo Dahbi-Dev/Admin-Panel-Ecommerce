@@ -14,7 +14,10 @@ const ListProduct = () => {
   const [isDeleting, setIsDeleting] = useState(false);
   const api = "https://backend-ecommerce-gibj.onrender.com"
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2ea5df7dfd534fbd57190da6e2a1aae6af44a96e
 =======
 >>>>>>> 2ea5df7dfd534fbd57190da6e2a1aae6af44a96e
 
