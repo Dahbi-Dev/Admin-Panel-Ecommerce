@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { FaUser, FaLock, FaSignInAlt } from "react-icons/fa";
 import { ClipLoader } from "react-spinners";

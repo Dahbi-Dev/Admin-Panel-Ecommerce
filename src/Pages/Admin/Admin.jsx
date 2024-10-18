@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { Routes, Route } from "react-router-dom";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import AddProduct from "../../Components/AddProduct/AddProduct";
@@ -16,6 +16,7 @@ import Orders from "../../Components/Orders/Orders";
 import Analytics from "../../Components/Analytics/Analytics";
 import './Admin.css'
 
+// eslint-disable-next-line react/prop-types
 const Admin = ({ onLogout }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import { Package, ListOrdered, Users, ClipboardList, DollarSign } from "lucide-react";
 import { Link } from "react-router-dom";

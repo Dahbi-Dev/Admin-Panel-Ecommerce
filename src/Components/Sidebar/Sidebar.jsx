@@ -1,4 +1,4 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
@@ -13,7 +13,7 @@ import {
   FaSignOutAlt,
   FaHome,
   FaUpload,
-  FaChartBar,
+  
 } from "react-icons/fa";
 import './Sidebar.css'
 

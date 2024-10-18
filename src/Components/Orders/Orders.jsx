@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import "./Orders.css";
 import ClipLoader from "react-spinners/ClipLoader";

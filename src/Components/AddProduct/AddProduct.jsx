@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import "./AddProduct.css";
 import upload_area from "../../assets/upload_area.svg";
 import { useState } from "react";
