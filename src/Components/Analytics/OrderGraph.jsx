@@ -14,6 +14,8 @@ const OrderGraph = () => {
   const [orderData, setOrderData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const api = "https://backend-ecommerce-gibj.onrender.com"
+
 
   useEffect(() => {
     const fetchOrderCounts = async () => {
@@ -21,7 +23,7 @@ const OrderGraph = () => {
       setError(null);
       try {
         const response = await fetch(
-          `http://localhost:4000/api/orders-count?timeFrame=${timeFrame}`
+          `${api}/api/orders-count?timeFrame=${timeFrame}`
         );
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

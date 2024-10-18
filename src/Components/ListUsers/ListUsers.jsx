@@ -6,14 +6,15 @@ function ListUsers() {
   const [users, setUsers] = useState([]);
   const [sortOption, setSortOption] = useState("latest"); // Default sort option
   const [searchTerm, setSearchTerm] = useState(""); // Search term for filtering
-  const API = "http://localhost:4000";
+  const api = "https://backend-ecommerce-gibj.onrender.com"
+
   const navigate = useNavigate();
 
   // Fetch users from the API
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(`${API}/api/users`);
+        const response = await fetch(`${api}/api/users`);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -25,11 +26,11 @@ function ListUsers() {
     };
 
     fetchUsers();
-  }, [API]);
+  }, [api]);
 
   // Delete a user
   const deleteUser = async (id) => {
-    await fetch(`${API}/api/users/${id}`, {
+    await fetch(`${api}/api/users/${id}`, {
       method: 'DELETE',
     });
     setUsers(users.filter(user => user._id !== id)); // Update local state

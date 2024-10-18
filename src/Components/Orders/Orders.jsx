@@ -20,7 +20,7 @@ function Orders() {
   const fetchOrders = async () => {
     setError(null);
     try {
-      const response = await fetch("http://localhost:4000/all-orders", {
+      const response = await fetch(`${api}/all-orders`, {
         headers: {
           "auth-token": localStorage.getItem("admin-auth-token"),
         },

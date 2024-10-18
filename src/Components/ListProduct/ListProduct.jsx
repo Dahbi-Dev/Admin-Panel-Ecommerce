@@ -12,9 +12,11 @@ const ListProduct = () => {
   const [sortOption, setSortOption] = useState("oldest");
   const [categorySortOption, setCategorySortOption] = useState("all");
   const [isDeleting, setIsDeleting] = useState(false);
+  const api = "https://backend-ecommerce-gibj.onrender.com"
+
 
   const fetchInfo = async () => {
-    const res = await fetch("http://localhost:4000/allproducts");
+    const res = await fetch(`${api}/allproducts`);
     const data = await res.json();
     setAllProducts(data);
     setProductCount(data.length);
@@ -34,7 +36,7 @@ const ListProduct = () => {
   }, []);
 
   const removeProduct = async (id) => {
-    await fetch("http://localhost:4000/removeproduct", {
+    await fetch(`${api}/removeproduct`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -53,7 +55,7 @@ const ListProduct = () => {
       setIsDeleting(true);
       try {
         const response = await fetch(
-          "http://localhost:4000/deleteallproducts",
+          `${api}/deleteallproducts`,
           {
             method: "DELETE",
           }

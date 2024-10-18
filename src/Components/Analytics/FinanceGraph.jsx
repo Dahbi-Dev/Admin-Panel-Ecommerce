@@ -9,12 +9,15 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+
 const FinanceGraph = () => {
   const [timeFrame, setTimeFrame] = useState("lastMonth");
   const [financeData, setFinanceData] = useState([]);
   const [totalBalance, setTotalBalance] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const api = "https://backend-ecommerce-gibj.onrender.com"
+
 
   useEffect(() => {
     const fetchFinanceData = async () => {
@@ -22,7 +25,7 @@ const FinanceGraph = () => {
       setError(null);
       try {
         const response = await fetch(
-          `http://localhost:4000/api/finance-data?timeFrame=${timeFrame}`
+          `${api}/api/finance-data?timeFrame=${timeFrame}`
         );
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
