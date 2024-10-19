@@ -1,46 +1,53 @@
 .add-users {
-  max-width: 450px; /* Slightly wider for better spacing */
-  margin: 80px auto; /* Centered with margin from the top */
-  padding: 25px 30px; /* Adjusted padding for better balance */
-  border: 1px solid #e0e0e0; /* Softer border */
-  border-radius: 10px; /* Smooth corners */
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Subtle elevation */
-  background-color: #ffffff; /* Clean white background */
+  max-width: 450px;
+  margin: 80px auto;
+  padding: 30px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  transition: box-shadow 0.3s ease;
+}
+
+.add-users:hover {
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
 }
 
 .add-users h1 {
   text-align: center;
-  margin-bottom: 25px;
-  font-size: 24px; /* Larger, more prominent title */
-  color: #333; /* Strong color */
-  font-weight: 600; /* Bolder heading */
+  margin-bottom: 30px;
+  font-size: 28px;
+  color: #333;
+  font-weight: 600;
 }
 
 .add-users form {
   display: flex;
   flex-direction: column;
-  gap: 15px; /* Space between form fields */
+  gap: 20px;
 }
 
 .add-users label {
-  margin-bottom: 5px;
+  display: block;
+  margin-bottom: 8px;
   font-weight: 500;
-  color: #555; /* Softer text color */
+  color: #555;
 }
 
 .add-users input {
+  width: 100%;
   padding: 12px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd; /* Softer border */
-  border-radius: 6px; /* Smooth corners */
+  border: 1px solid #ddd;
+  border-radius: 6px;
   font-size: 16px;
-  background-color: #fafafa; /* Light background for inputs */
-  transition: border 0.3s ease; /* Smooth transition */
+  background-color: #fafafa;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .add-users input:focus {
-  border-color: #007bff; /* Blue highlight on focus */
-  outline: none; /* Remove default outline */
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+  outline: none;
 }
 
 .add-users button {
@@ -52,35 +59,76 @@
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+  transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
-.add-users button:hover {
-  background-color: #0056b3; /* Darker on hover */
-  box-shadow: 0 6px 12px rgba(0, 91, 187, 0.2); /* Elevation on hover */
+.add-users button:hover:not(:disabled) {
+  background-color: #0056b3;
+  transform: translateY(-2px);
 }
 
-.add-users div {
-  text-align: center;
-  margin-top: 10px;
-  font-weight: 600;
+.add-users button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
 }
 
-.add-users .checkbox-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.error-message {
+  color: #dc3545;
+  font-size: 14px;
+  margin-top: 5px;
 }
 
-.add-users .checkbox-wrapper label {
-  font-weight: 400;
-  margin: 0;
+.success-message {
+  color: #28a745;
+  font-size: 14px;
+  margin-top: 5px;
 }
 
-.add-users div[style*="color: red"] {
-  color: red;
+.password-input-wrapper {
+  position: relative;
 }
 
-.add-users div[style*="color: green"] {
-  color: green;
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 0;
+}
+
+.password-strength {
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.password-strength.weak {
+  color: #dc3545;
+}
+
+.password-strength.medium {
+  color: #ffc107;
+}
+
+.password-strength.strong {
+  color: #28a745;
+}
+
+@media (max-width: 480px) {
+  .add-users {
+    margin: 40px auto;
+    padding: 20px;
+  }
+
+  .add-users h1 {
+    font-size: 24px;
+  }
+
+  .add-users input,
+  .add-users button {
+    font-size: 14px;
+  }
 }
