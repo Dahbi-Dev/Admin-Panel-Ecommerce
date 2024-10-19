@@ -6,7 +6,7 @@ function ListUsers() {
   const [users, setUsers] = useState([]);
   const [sortOption, setSortOption] = useState("latest"); // Default sort option
   const [searchTerm, setSearchTerm] = useState(""); // Search term for filtering
-  const api = import.meta.env.REACT_APP_API_URL;
+  const api = import.meta.env.VITE_API_URL;
 
   const navigate = useNavigate();
 

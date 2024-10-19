@@ -8,7 +8,7 @@ import ProductGraph from "./ProductGraph";
 import FinanceGraph from "./FinanceGraph";
 
 const Analytics = () => {
-  const api = import.meta.env.REACT_APP_API_URL;
+  const api = import.meta.env.VITE_API_URL;
 
   const [data, setData] = useState({
     productsCount: 0,

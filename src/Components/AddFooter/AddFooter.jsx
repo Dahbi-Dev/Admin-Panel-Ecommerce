@@ -14,7 +14,7 @@ function AddFooter() {
   const [successMessage, setSuccessMessage] = useState("");
   const [footerTextItems, setFooterTextItems] = useState([]);
   const [footerIconItems, setFooterIconItems] = useState([]);
-  const api = import.meta.env.REACT_APP_API_URL;
+  const api = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     fetchFooterItems();

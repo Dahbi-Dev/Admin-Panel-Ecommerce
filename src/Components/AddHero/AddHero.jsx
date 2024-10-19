@@ -21,7 +21,7 @@ function AddHero() {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [existingHeroImages, setExistingHeroImages] = useState({});
-  const api = import.meta.env.REACT_APP_API_URL;
+  const api = import.meta.env.VITE_API_URL;
 
 
   const fetchHeroData = async () => {

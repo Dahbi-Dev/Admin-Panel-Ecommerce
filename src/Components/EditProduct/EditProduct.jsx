@@ -4,7 +4,7 @@ import { ClipLoader } from "react-spinners";
 import "./EditProduct.css";
 
 const EditProduct = () => {
-  const api = import.meta.env.REACT_APP_API_URL;
+  const api = import.meta.env.VITE_API_URL;
 
   const [images, setImages] = useState([]);
   const [productDetails, setProductDetails] = useState({

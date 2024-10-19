@@ -14,7 +14,7 @@ const ProductGraph = () => {
   const [productData, setProductData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const api = import.meta.env.REACT_APP_API_URL;
+  const api = import.meta.env.VITE_API_URL;
 
 
   useEffect(() => {
