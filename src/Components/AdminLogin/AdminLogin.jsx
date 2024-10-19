@@ -9,7 +9,7 @@ const AdminLogin = ({ onLogin, onLogout }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const api = "https://backend-ecommerce-gibj.onrender.com"
+  const api = import.meta.env.REACT_APP_API_URL;
 
 
   const handleSubmit = async (e) => {

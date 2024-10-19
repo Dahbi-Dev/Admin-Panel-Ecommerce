@@ -14,7 +14,7 @@ const OrderGraph = () => {
   const [orderData, setOrderData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const api = "https://backend-ecommerce-gibj.onrender.com"
+  const api = import.meta.env.REACT_APP_API_URL;
 
 
   useEffect(() => {

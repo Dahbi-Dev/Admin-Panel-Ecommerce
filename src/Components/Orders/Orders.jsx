@@ -16,7 +16,7 @@ function Orders() {
   const [paymentFilter, setPaymentFilter] = useState("all");
   const [orderTypeFilter, setOrderTypeFilter] = useState("active");
   const [color, setColor] = useState("#ff9900");
-  const api = "https://backend-ecommerce-gibj.onrender.com";
+  const api = import.meta.env.REACT_APP_API_URL;
 
   const fetchOrders = async () => {
     setError(null);

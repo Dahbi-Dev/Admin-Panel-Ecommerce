@@ -12,7 +12,7 @@ const ListProduct = () => {
   const [sortOption, setSortOption] = useState("oldest");
   const [categorySortOption, setCategorySortOption] = useState("all");
   const [isDeleting, setIsDeleting] = useState(false);
-  const api = "https://backend-ecommerce-gibj.onrender.com"
+  const api = import.meta.env.REACT_APP_API_URL;
   
 
   const fetchInfo = async () => {

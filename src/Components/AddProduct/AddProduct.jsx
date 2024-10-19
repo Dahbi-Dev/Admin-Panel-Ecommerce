@@ -5,7 +5,7 @@ import { useState } from "react";
 import { ClipLoader } from "react-spinners";
 
 const AddProduct = () => {
-  const api = "https://backend-ecommerce-gibj.onrender.com"
+  const api = import.meta.env.REACT_APP_API_URL;
   const [images, setImages] = useState([]);
   const [productDetails, setProductDetails] = useState({
     name: "",

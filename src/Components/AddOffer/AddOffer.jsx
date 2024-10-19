@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 import { ClipLoader } from 'react-spinners'; // Import the spinner
 import './AddOffer.css';
 
-const api = "https://backend-ecommerce-gibj.onrender.com"
 // Base URL for API
 
 const AddOffer = () => {
+
+    const api = import.meta.env.REACT_APP_API_URL;
+
     const [formData, setFormData] = useState({
         headline1: '',
         headline2: '',

@@ -1,38 +1,38 @@
-import { useEffect, useState } from 'react';
-import { ClipLoader } from 'react-spinners'; // Import the spinner component
-import './AddFooter.css';
+import { useEffect, useState } from "react";
+import { ClipLoader } from "react-spinners"; // Import the spinner component
+import "./AddFooter.css";
 
 function AddFooter() {
-  const [text, setText] = useState('');
-  const [textUrl, setTextUrl] = useState('');
+  const [text, setText] = useState("");
+  const [textUrl, setTextUrl] = useState("");
   const [icon, setIcon] = useState(null);
-  const [iconUrl, setIconUrl] = useState('');
+  const [iconUrl, setIconUrl] = useState("");
   const [loadingPage, setLoadingPage] = useState(true); // State to track overall page loading
   const [loadingText, setLoadingText] = useState(false);
   const [loadingIcon, setLoadingIcon] = useState(false);
-  const [error, setError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+  const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const [footerTextItems, setFooterTextItems] = useState([]);
   const [footerIconItems, setFooterIconItems] = useState([]);
+  const api = import.meta.env.REACT_APP_API_URL;
 
   useEffect(() => {
     fetchFooterItems();
-  }, []);
-  const api = "https://backend-ecommerce-gibj.onrender.com"
+  }, [api]);
   const fetchFooterItems = async () => {
     try {
       const textResponse = await fetch(`${api}/footer-texts`);
-      if (!textResponse.ok) throw new Error('Failed to load footer text items');
+      if (!textResponse.ok) throw new Error("Failed to load footer text items");
       const textData = await textResponse.json();
       setFooterTextItems(textData);
 
       const iconResponse = await fetch(`${api}/footer-icons`);
-      if (!iconResponse.ok) throw new Error('Failed to load footer icon items');
+      if (!iconResponse.ok) throw new Error("Failed to load footer icon items");
       const iconData = await iconResponse.json();
       setFooterIconItems(iconData);
     } catch (error) {
-      console.error('Error fetching footer items:', error);
-      setError('Failed to load footer items');
+      console.error("Error fetching footer items:", error);
+      setError("Failed to load footer items");
     } finally {
       setLoadingPage(false); // Once data is fetched, stop loading spinner
     }
@@ -45,31 +45,31 @@ function AddFooter() {
   const handleTextSubmit = async (event) => {
     event.preventDefault();
     setLoadingText(true);
-    setError('');
-    setSuccessMessage('');
+    setError("");
+    setSuccessMessage("");
 
     if (!text || !textUrl) {
-      setError('Please fill in both text fields.');
+      setError("Please fill in both text fields.");
       setLoadingText(false);
       return;
     }
 
     try {
       const response = await fetch(`${api}/upload-footer-text`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ text, textUrl }),
       });
 
-      if (!response.ok) throw new Error('Failed to upload footer text item');
+      if (!response.ok) throw new Error("Failed to upload footer text item");
       const data = await response.json();
       setSuccessMessage(data.message); // Display success message
       fetchFooterItems();
       resetTextForm();
     } catch (error) {
-      console.error('Error uploading footer text item:', error);
+      console.error("Error uploading footer text item:", error);
       setError(error.message);
     } finally {
       setLoadingText(false);
@@ -79,32 +79,32 @@ function AddFooter() {
   const handleIconSubmit = async (event) => {
     event.preventDefault();
     setLoadingIcon(true);
-    setError('');
-    setSuccessMessage('');
+    setError("");
+    setSuccessMessage("");
 
     if (!icon) {
-      setError('Please upload an icon image.');
+      setError("Please upload an icon image.");
       setLoadingIcon(false);
       return;
     }
 
     const formData = new FormData();
-    formData.append('icon', icon);
-    formData.append('iconUrl', iconUrl);
+    formData.append("icon", icon);
+    formData.append("iconUrl", iconUrl);
 
     try {
       const response = await fetch(`${api}/upload-footer-icon`, {
-        method: 'POST',
+        method: "POST",
         body: formData,
       });
 
-      if (!response.ok) throw new Error('Failed to upload footer icon item');
+      if (!response.ok) throw new Error("Failed to upload footer icon item");
       const data = await response.json();
       setSuccessMessage(data.message); // Display success message
       fetchFooterItems();
       resetIconForm();
     } catch (error) {
-      console.error('Error uploading footer icon item:', error);
+      console.error("Error uploading footer icon item:", error);
       setError(error.message);
     } finally {
       setLoadingIcon(false);
@@ -112,19 +112,19 @@ function AddFooter() {
   };
 
   const resetTextForm = () => {
-    setText('');
-    setTextUrl('');
+    setText("");
+    setTextUrl("");
   };
 
   const resetIconForm = () => {
     setIcon(null);
-    setIconUrl('');
+    setIconUrl("");
   };
 
   const handleDeleteTextItem = async (id) => {
     try {
       const response = await fetch(`${api}/footer-text/${id}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
       const data = await response.json();
       if (data.success) {
@@ -134,7 +134,7 @@ function AddFooter() {
         throw new Error(data.message);
       }
     } catch (error) {
-      console.error('Error deleting footer text item:', error);
+      console.error("Error deleting footer text item:", error);
       setError(error.message);
     }
   };
@@ -142,7 +142,7 @@ function AddFooter() {
   const handleDeleteIconItem = async (id) => {
     try {
       const response = await fetch(`${api}/footer-icon/${id}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
       const data = await response.json();
       if (data.success) {
@@ -152,13 +152,13 @@ function AddFooter() {
         throw new Error(data.message);
       }
     } catch (error) {
-      console.error('Error deleting footer icon item:', error);
+      console.error("Error deleting footer icon item:", error);
       setError(error.message);
     }
   };
 
   return (
-    <div className="add-footer" style={{ marginTop: '80px' }}>
+    <div className="add-footer" style={{ marginTop: "80px" }}>
       {/* Show spinner while loading the page */}
       {loadingPage ? (
         <div className="spinner-container">
@@ -168,7 +168,9 @@ function AddFooter() {
         <>
           <h2>Add Footer Text Item</h2>
           {error && <p className="alert alert-error">{error}</p>}
-          {successMessage && <p className="alert alert-success">{successMessage}</p>}
+          {successMessage && (
+            <p className="alert alert-success">{successMessage}</p>
+          )}
 
           <form onSubmit={handleTextSubmit}>
             <div className="form-group">
@@ -194,7 +196,11 @@ function AddFooter() {
             </div>
 
             <button type="submit" disabled={loadingText}>
-              {loadingText ? <ClipLoader size={20} color="#fff" /> : 'Add Footer Text Item'}
+              {loadingText ? (
+                <ClipLoader size={20} color="#fff" />
+              ) : (
+                "Add Footer Text Item"
+              )}
             </button>
           </form>
 
@@ -223,7 +229,11 @@ function AddFooter() {
             </div>
 
             <button type="submit" disabled={loadingIcon}>
-              {loadingIcon ? <ClipLoader size={20} color="#fff" /> : 'Add Footer Icon Item'}
+              {loadingIcon ? (
+                <ClipLoader size={20} color="#fff" />
+              ) : (
+                "Add Footer Icon Item"
+              )}
             </button>
           </form>
 
@@ -233,10 +243,16 @@ function AddFooter() {
               <div key={item._id} className="footer-item card">
                 <div className="footer-item-content">
                   <p>{item.text}</p>
-                  <a href={item.textUrl} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={item.textUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     {item.textUrl}
                   </a>
-                  <button onClick={() => handleDeleteTextItem(item._id)}>Delete Item</button>
+                  <button onClick={() => handleDeleteTextItem(item._id)}>
+                    Delete Item
+                  </button>
                 </div>
               </div>
             ))}
@@ -248,11 +264,21 @@ function AddFooter() {
               footerIconItems.map((item) => (
                 <div key={item._id} className="footer-item icon-card">
                   <div className="footer-item-content">
-                    <img src={item.iconImageUrl} alt={`Icon for ${item.iconUrl}`} className="footer-icon" />
-                    <a href={item.iconUrl} target="_blank" rel="noopener noreferrer">
+                    <img
+                      src={item.iconImageUrl}
+                      alt={`Icon for ${item.iconUrl}`}
+                      className="footer-icon"
+                    />
+                    <a
+                      href={item.iconUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       {item.iconUrl}
                     </a>
-                    <button onClick={() => handleDeleteIconItem(item._id)}>Delete Icon</button>
+                    <button onClick={() => handleDeleteIconItem(item._id)}>
+                      Delete Icon
+                    </button>
                   </div>
                 </div>
               ))

@@ -11,7 +11,7 @@ function AddUsers() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const api = "https://backend-ecommerce-gibj.onrender.com"
+  const api = import.meta.env.REACT_APP_API_URL;
 
   
   const navigate = useNavigate(); // Initialize navigate

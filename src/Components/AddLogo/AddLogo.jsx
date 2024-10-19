@@ -8,7 +8,7 @@ const AddLogo = () => {
   const [logos, setLogos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
-  const api = "https://backend-ecommerce-gibj.onrender.com"
+  const api = import.meta.env.REACT_APP_API_URL;
 
 
   useEffect(() => {

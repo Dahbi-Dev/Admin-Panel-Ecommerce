@@ -8,7 +8,7 @@ import ProductGraph from "./ProductGraph";
 import FinanceGraph from "./FinanceGraph";
 
 const Analytics = () => {
-  const api = "https://backend-ecommerce-gibj.onrender.com"
+  const api = import.meta.env.REACT_APP_API_URL;
 
   const [data, setData] = useState({
     productsCount: 0,

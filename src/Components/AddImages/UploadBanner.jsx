@@ -8,7 +8,7 @@ const UploadBanner = () => {
   const [banners, setBanners] = useState([]);
   const [loading, setLoading] = useState(true); // Loading state for initial fetch
   const [buttonLoading, setButtonLoading] = useState(false); // Loading state for button actions
-  const api = "https://backend-ecommerce-gibj.onrender.com"
+  const api = import.meta.env.REACT_APP_API_URL;
 
 
   useEffect(() => {
