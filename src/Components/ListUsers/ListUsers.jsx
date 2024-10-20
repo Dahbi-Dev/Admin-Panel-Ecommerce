@@ -29,12 +29,20 @@ function ListUsers() {
   }, [api]);
 
   // Delete a user
-  const deleteUser = async (id) => {
-    await fetch(`${api}/api/users/${id}`, {
+const deleteUser = async (id) => {
+  try {
+    const response = await fetch(`${api}/api/users/${id}`, {
       method: 'DELETE',
     });
-    setUsers(users.filter(user => user._id !== id)); // Update local state
-  };
+    if (!response.ok) {
+      throw new Error("Failed to delete user");
+    }
+    setUsers(users.filter(user => user._id !== id)); // Update local state after deletion
+  } catch (error) {
+    console.error("Error deleting user:", error);
+  }
+};
+
 
   // Edit user and navigate to EditUser route
   const editUser = (id) => {

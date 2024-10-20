@@ -23,7 +23,8 @@ function Orders() {
     try {
       const response = await fetch(`${api}/all-orders`, {
         headers: {
-          "auth-token": localStorage.getItem("admin-auth-token"),
+          "auth-token": sessionStorage.getItem("adminToken") ,
+         
         },
       });
       if (!response.ok) {
@@ -118,7 +119,7 @@ function Orders() {
       const response = await fetch(`${api}/delete-order/${orderId}`, {
         method: "DELETE",
         headers: {
-          "auth-token": localStorage.getItem("admin-auth-token"),
+          "auth-token": sessionStorage.getItem("adminToken") ,
         },
       });
       if (!response.ok) {
@@ -139,7 +140,7 @@ function Orders() {
       const response = await fetch(`${api}/delete-all-orders`, {
         method: "DELETE",
         headers: {
-          "auth-token": localStorage.getItem("admin-auth-token"),
+          "auth-token": sessionStorage.getItem("adminToken") ,
         },
       });
       if (!response.ok) {
@@ -158,7 +159,7 @@ function Orders() {
       const response = await fetch(`${api}/update-order-status/${id}`, {
         method: "PUT",
         headers: {
-          "auth-token": localStorage.getItem("admin-auth-token"),
+          "auth-token": sessionStorage.getItem("adminToken") ,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ status: deliveryStatus }),
